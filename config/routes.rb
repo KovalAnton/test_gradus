@@ -2,7 +2,9 @@ Rails.application.routes.draw do
 
   resources :orders
   devise_for :users
-  root 'home#index'
-  get 'persons/profile', as: 'user_root'
+
+  root 'orders#index'
+  
+  get 'orders/new', as: 'user_root'
   
 end

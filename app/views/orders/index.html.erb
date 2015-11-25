@@ -1,35 +1,35 @@
-<p id="notice"><%= notice %></p>
+<h1>Список обьявлений</h1>
+<div id="content">
+  <div id="map">
+    
+  </div> <!-- end map -->
 
-<h1>Listing Orders</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Convenience</th>
-      <th>Price</th>
-      <th>Address</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <div id="sort">
+    <h2>Сортировать по:</h2><br><%= link_to 'New Order', new_order_path %>
+    <ul>
+      <li>Названию</li>
+      <li>Удобствам</li>
+      <li>Цене <select>
+                <option value="10">Меньше 10</option>
+                <option value="100">Меньше 100</option>
+                <option value="101">Больше 100</option>        
+               </select>
+      </li>
+      <li><input type="submit" value="Сортировать"></li>
+    </ul>
+  </div> 
+  <div id="listings">
     <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.name %></td>
-        <td><%= order.description %></td>
-        <td><%= order.convenience %></td>
-        <td><%= order.price %></td>
-        <td><%= order.address %></td>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <div id="paragraph">
+      <ul>
+        <li><%= order.name %></li>
+        <li><%= order.description %></li>
+        <li><%= order.convenience %></li>
+        <li><%= order.price %></li>
+        <li><%= order.address %></li>
+        <li><%= link_to 'Подробно', order %> <%= link_to 'Редактировать', edit_order_path(order) %> <%= link_to 'Удалить', order, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+      </ul>
+    </div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Order', new_order_path %>
+  </div>
+</div>
