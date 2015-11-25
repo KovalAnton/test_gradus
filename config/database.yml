@@ -1,0 +1,18 @@
+
+development:
+  host: localhost
+  database: site_development
+  adapter: sqlite3
+  username: root
+
+test:
+  host: localhost
+  database: site_test
+  adapter: sqlite3
+  username: root
+
+production:
+  host: localhost
+  database: site_development
+  adapter: sqlite3
+  username: root
