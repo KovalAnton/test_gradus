@@ -5,10 +5,8 @@ class OrdersController < ApplicationController
   # GET /orders.json
   def index
     if request.xhr?
-      lat = params[:lat].present? ? params[:lat] : 55.7522222
-      lng = params[:lng].present? ? params[:lng] : 37.6155556
-      orders = Order.where(lat: (lat - 0.5)...(lat + 0.5), lng: (lng - 0.5)...(lng + 0.5))
-      render json: orders.to_json
+      @orders = Order.where(lat: params[:south]...params[:north], lng: params[:west]...params[:east])
+      render partial: 'orders'
     else
       @orders = Order.all
     end

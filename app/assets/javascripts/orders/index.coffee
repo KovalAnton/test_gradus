@@ -23,3 +23,21 @@ $(document).on "ready page:loaded", ->
       return
     i++
 
+  load_ads = (map) ->
+    bounds = map.getBounds()
+    $.ajax(
+      url: '/orders'
+      data: bounds.toJSON()).success (response) ->
+      $("#orders").html(response)
+    return
+
+  google.maps.event.addListener map, 'dragend', ->
+    load_ads this
+  google.maps.event.addListener map, 'zoom_changed', ->
+    load_ads this
+  google.maps.event.addListener map, 'resize', ->
+    load_ads this
+ 
+    
+
+   
