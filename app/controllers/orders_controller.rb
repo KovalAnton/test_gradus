@@ -1,9 +1,25 @@
+require 'builder'
+require 'will_paginate'
+include ActionView::Helpers::NumberHelper
+
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!, except: [:show, :index]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
+  #   @filterrific = initialize_filterrific(
+  #     Order,
+  #     params[:filterrific],
+  #     select_options: {
+  #       whith_price: Order.options_for_select
+  #     },
+  #   ) or return
+    
+  #   @orders = @filterrific.find.page(params[:page])
+  # end
+
     if request.xhr?
       @orders = Order.where(lat: params[:south]...params[:north], lng: params[:west]...params[:east])
       render partial: 'orders'
@@ -30,6 +46,10 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+      if @order.save
+        @order.update_attributes(email_user: current_user.email)
+      end
+
 
     respond_to do |format|
       if @order.save
@@ -45,6 +65,7 @@ class OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update
+    
     respond_to do |format|
       if @order.update(order_params)
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -75,6 +96,6 @@ class OrdersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:name, :description, :convenience, :price, :address, :image, :retained_image, :remove_image, :lat, :lng)
+      params.require(:order).permit(:name, :description, :convenience, :price, :address, :image, :retained_image, :remove_image, :lat, :lng, :email_user)
     end
 end

@@ -29,6 +29,11 @@
           <strong>Address:</strong>
           <%= @order.address %>
         </p>
+
+        <p>
+          <strong>Объявление создал:</strong>
+          <%= @order.email_user %>
+        </p>
         <%= hidden_field_tag "order_lat", @order.lat %>
         <%= hidden_field_tag "order_lng", @order.lng %>
         <%= hidden_field_tag "order_exist", true %>

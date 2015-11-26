@@ -29,6 +29,8 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'simple_form'
 gem 'dragonfly', '~> 1.0.12'
 gem 'simple_dragonfly_preview'
+gem 'filterrific'
+gem 'will_paginate', '~> 3.0.6'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
