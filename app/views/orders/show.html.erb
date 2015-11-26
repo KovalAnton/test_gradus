@@ -1,29 +1,51 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @order.description %>
-</p>
+<div class="container">
+  <div class="col-md-12">
+   <div id="row">
+      <div class="col-md-4">
+        <%= image_tag @order.image.thumb('300x200#').url if @order.image_stored? %>          
+        <p>
+          <strong>Name:</strong>
+          <%= @order.name %>
+        </p>
 
-<p>
-  <strong>Convenience:</strong>
-  <%= @order.convenience %>
-</p>
+        <p>
+          <strong>Description:</strong>
+          <%= @order.description %>
+        </p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @order.price %>
-</p>
+        <p>
+          <strong>Convenience:</strong>
+          <%= @order.convenience %>
+        </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @order.address %>
-</p>
+        <p>
+          <strong>Price:</strong>
+          <%= @order.price %>
+        </p>
 
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+        <p>
+          <strong>Address:</strong>
+          <%= @order.address %>
+        </p>
+        <%= hidden_field_tag "order_lat", @order.lat %>
+        <%= hidden_field_tag "order_lng", @order.lng %>
+        <%= hidden_field_tag "order_exist", true %>
+      </div>
+      <div class="col-md-8">
+          <div id="map" style="height:600px;width:100%;"></div>
+      </div>
+    </div>
+    <div id="row">
+      <div id="col-md-6">
+        <div class="btn-group">
+          <%= link_to 'Edit', edit_order_path(@order), class: "btn btn-warning", type: "button" %>
+          <%= link_to 'Back', orders_path, class: "btn btn-danger", type: "button"  %>
+        </div>
+      </div>
+    </div>
+    <%= render_map(@order) %>
+  </div>
+</div>
+

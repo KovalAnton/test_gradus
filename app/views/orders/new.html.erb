@@ -1,5 +1,17 @@
-<h1>Новое обьявление</h1>
+<div class="container">
+  <div class="col-md-12">
+    <h2>
+      New Ad
+    </h2>
+   <div id="row">
+      <div class="col-md-4">
+        <%= render 'form' %>
+      </div>
+      <div class="col-md-8">
+          <div id="map" style="height:600px;width:100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= render 'form' %>
 
-<%= link_to 'Back', orders_path %>

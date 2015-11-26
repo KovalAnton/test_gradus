@@ -1,37 +1,21 @@
-<%= form_for(@order) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
 
-      <ul>
-      <% @order.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<%= simple_form_for(@order, html: { class: 'form-horizontal' }) do |f|  %>
+  <%= f.error_notification %>
+  <%= f.input :name %>
+  <%= f.input :description, input_html: { rows: 7 } %>
+  <%= f.input :convenience, input_html: { rows: 7 } %>
+  <%= f.input :price do %>
+    <%= f.input_field :price, as: :numeric, maxlength: 9, min: 0 %>
   <% end %>
+  <%= f.input :image, as: :image_preview, size: "145x145#"%>
+  <div class="btn-group">
+    <%= f.button :submit, class: "btn btn-success", type: "submit" %>
+    <%= link_to 'Back', orders_path, class: "btn btn-danger", type: "button"  %>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :convenience %><br>
-    <%= f.text_area :convenience %>
-  </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.number_field :price %>
-  </div>
-  <div class="field">
-    <%= f.label :address %><br>
-    <%= f.text_area :address %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    
+  </div> 
+  <%= f.input :lat, as: :hidden %>
+  <%= f.input :lng, as: :hidden %>
+  <%= render_map(@order) %>
 <% end %>

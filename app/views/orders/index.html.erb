@@ -1,35 +1,23 @@
-<h1>Список обьявлений</h1>
-<div id="content">
-  <div id="map">
-    
-  </div> <!-- end map -->
+<div class="page-header">
+  <h1>Список обьявлений</h1>
+</div>
 
-  <div id="sort">
-    <h2>Сортировать по:</h2><br><%= link_to 'New Order', new_order_path %>
-    <ul>
-      <li>Названию</li>
-      <li>Удобствам</li>
-      <li>Цене <select>
-                <option value="10">Меньше 10</option>
-                <option value="100">Меньше 100</option>
-                <option value="101">Больше 100</option>        
-               </select>
-      </li>
-      <li><input type="submit" value="Сортировать"></li>
-    </ul>
-  </div> 
-  <div id="listings">
-    <% @orders.each do |order| %>
-    <div id="paragraph">
-      <ul>
-        <li><%= order.name %></li>
-        <li><%= order.description %></li>
-        <li><%= order.convenience %></li>
-        <li><%= order.price %></li>
-        <li><%= order.address %></li>
-        <li><%= link_to 'Подробно', order %> <%= link_to 'Редактировать', edit_order_path(order) %> <%= link_to 'Удалить', order, method: :delete, data: { confirm: 'Are you sure?' } %></li>
-      </ul>
-    </div>
+<% @orders.each_slice(2) do |orders| %>
+  <div class="row">
+    <% orders.each do |order| %>
+      <div class="col-sm-5 col-md-3">
+        <div class="thumbnail">
+            <%= image_tag order.image.thumb('300x200#').url if order.image_stored? %>          
+            <div class="caption">
+              <h3><%= link_to "#{truncate(order.name, length: 10, omission: '...')} - #{order.price} RUB", order %></h3>
+              <p><%= truncate(order.description, length: 140, omission: '...') %></p>
+              <p>
+                <%= link_to 'Редактировать', edit_order_path(order), class: "btn btn-primary", role: "button" %>
+                <%= link_to 'Удалить', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", role: "button" %>
+              </p>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
-</div>
+<% end %>
