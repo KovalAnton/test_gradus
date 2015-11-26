@@ -1,23 +1,29 @@
 <div class="page-header">
   <h1>Список обьявлений</h1>
 </div>
-
-<% @orders.each_slice(2) do |orders| %>
-  <div class="row">
-    <% orders.each do |order| %>
-      <div class="col-sm-5 col-md-3">
-        <div class="thumbnail">
-            <%= image_tag order.image.thumb('300x200#').url if order.image_stored? %>          
-            <div class="caption">
-              <h3><%= link_to "#{truncate(order.name, length: 10, omission: '...')} - #{order.price} RUB", order %></h3>
-              <p><%= truncate(order.description, length: 140, omission: '...') %></p>
-              <p>
-                <%= link_to 'Редактировать', edit_order_path(order), class: "btn btn-primary", role: "button" %>
-                <%= link_to 'Удалить', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", role: "button" %>
-              </p>
+<div class="container col-md-6">
+  <% @orders.each_slice(2) do |orders| %>
+    <div class="row">
+      <% orders.each do |order| %>
+        <div class="col-sm-6 col-md-6">
+          <div class="thumbnail">
+              <%= image_tag order.image.thumb('300x200#').url if order.image_stored? %>          
+              <div class="caption">
+                <h3><%= link_to "#{truncate(order.name, length: 10, omission: '...')} - #{order.price} RUB", order %></h3>
+                <p><%= truncate(order.description, length: 140, omission: '...') %></p>
+                <p>
+                  <%= link_to 'Редактировать', edit_order_path(order), class: "btn btn-primary", role: "button" %>
+                  <%= link_to 'Удалить', order, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger", role: "button" %>
+                </p>
+                  <%= hidden_field_tag "order_lat_lng", order.geoposition.to_json, class: "geopositions" %>
+            </div>
           </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="container col-md-6">
+  <div id="map" style="height:600px;width:100%;"></div>
+  <%= render_map %>
+</div>

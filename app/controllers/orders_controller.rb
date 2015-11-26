@@ -4,7 +4,14 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    if request.xhr?
+      lat = params[:lat].present? ? params[:lat] : 55.7522222
+      lng = params[:lng].present? ? params[:lng] : 37.6155556
+      orders = Order.where(lat: (lat - 0.5)...(lat + 0.5), lng: (lng - 0.5)...(lng + 0.5))
+      render json: orders.to_json
+    else
+      @orders = Order.all
+    end
   end
 
   # GET /orders/1
@@ -45,6 +52,7 @@ class OrdersController < ApplicationController
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
         format.json { render :show, status: :ok, location: @order }
       else
+        puts @order.errors.full_messages
         format.html { render :edit }
         format.json { render json: @order.errors, status: :unprocessable_entity }
       end

@@ -5,4 +5,8 @@ class Order < ActiveRecord::Base
   validates :address, length: { maximum: 50, minimum:10 }
   validates :convenience, length: { maximum: 100, minimum:10 }
   validates :price, numericality: { greather_than: 0}
+
+  def geoposition
+    { lat: lat, lng: lng, id: id }
+  end
 end

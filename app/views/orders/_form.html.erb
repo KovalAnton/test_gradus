@@ -1,12 +1,13 @@
-
 <%= simple_form_for(@order, html: { class: 'form-horizontal' }) do |f|  %>
   <%= f.error_notification %>
   <%= f.input :name %>
+  <%= f.input :address %>
   <%= f.input :description, input_html: { rows: 7 } %>
   <%= f.input :convenience, input_html: { rows: 7 } %>
   <%= f.input :price do %>
     <%= f.input_field :price, as: :numeric, maxlength: 9, min: 0 %>
   <% end %>
+
   <%= f.input :image, as: :image_preview, size: "145x145#"%>
   <div class="btn-group">
     <%= f.button :submit, class: "btn btn-success", type: "submit" %>
@@ -17,5 +18,5 @@
   </div> 
   <%= f.input :lat, as: :hidden %>
   <%= f.input :lng, as: :hidden %>
-  <%= render_map(@order) %>
+  <%= render_map %>
 <% end %>
